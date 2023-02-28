@@ -4,3 +4,7 @@ In this repository configuration files, scripts and more exist for configuring a
 ## Dataset used in Analytics
 
 For the large-scale data analytics we're using a dataset from [NCEI](https://www.ncei.noaa.gov/), specifically the dataset called [`global-hourly`](https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database) which contains hourly observations from different land and weather stations around the world.  
+
+### Fetching the Data
+
+To fetch data from the source simply run the shell script `fetch_data.sh`
