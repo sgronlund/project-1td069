@@ -12,6 +12,9 @@ for i in $years; do
     #TODO: Maybe add command to put directory onto HDFS here or create separate script for that?
 done
 
+python3 src/preprocess "data/"
+
+
 total_data_size=$(du -h data | tail -n 1 | awk '{print $1}')
 
 echo "Done downloading, total size of dataset is ${total_data_size}"
