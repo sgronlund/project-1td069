@@ -1,8 +1,15 @@
 #!/usr/bin/bash
+DEBUG=false
+while true;do
+  case "$1" in 
+    --debug) DEBUG=true; shift ;;
+    *) break;;
+  esac
+done
 
 url="https://www.ncei.noaa.gov/data/global-hourly/access/"
 year_start=2000
-year_end=2003
+year_end=2023
 
 header="STATION,DATE,SOURCE,LATITUDE,LONGITUDE,ELEVATION,NAME,REPORT_TYPE,CALL_SIGN,QUALITY_CONTROL,WND,CIG,VIS,TMP,DEW,SLP,AA1,AY1,AY2,GA1,GF1,KA1,MA1,MD1,MW1,OA1,OA2,SA1,UA1,REM,EQD"
 
@@ -20,7 +27,7 @@ for i in $years; do
       wget -e robots=off -U mozilla --no-clobber --no-host-directories --no-directories --quiet --random-wait --no-parent --reject="index.html*,*.txt" --directory-prefix="data/$i" "$curr_dir/$file"
       printf "Downloaded file $j/${#files} \r"
       j=$((++j))
-      if [[ $j -eq 5 ]] 
+      if [[ "$DEBUG" == true ]] && [[ $j -eq 51 ]];
       then
         break
       fi
