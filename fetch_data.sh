@@ -38,7 +38,7 @@ for dir in $(ls data/); do
   rm data/$dir/+([0-9]).csv # remove all merged files
 done
 
-#python3 src/preprocess.py  "$year_start" "$year_end"
+python3 src/preprocess.py  "$year_start" "$year_end"
 
 total_data_size=$(du -h data | tail -n 1 | awk '{print $1}')
 
