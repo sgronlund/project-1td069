@@ -2,7 +2,10 @@
 
 url="https://www.ncei.noaa.gov/data/global-hourly/access/"
 year_start=2000
-year_end=2023
+year_end=2003
+
+header="STATION,DATE,SOURCE,LATITUDE,LONGITUDE,ELEVATION,NAME,REPORT_TYPE,CALL_SIGN,QUALITY_CONTROL,WND,CIG,VIS,TMP,DEW,SLP,AA1,AY1,AY2,GA1,GF1,KA1,MA1,MD1,MW1,OA1,OA2,SA1,UA1,REM,EQD"
+
 years=$(seq $year_start $year_end) #TODO: Maybe parse cmdline args for a span of years and create sequence from that?
 
 # init stage
@@ -17,7 +20,7 @@ for i in $years; do
       wget -e robots=off -U mozilla --no-clobber --no-host-directories --no-directories --quiet --random-wait --no-parent --reject="index.html*,*.txt" --directory-prefix="data/$i" "$curr_dir/$file"
       printf "Downloaded file $j/${#files} \r"
       j=$((++j))
-      if [[ $j -eq 50 ]] 
+      if [[ $j -eq 5 ]] 
       then
         break
       fi
@@ -26,8 +29,16 @@ for i in $years; do
 #TODO: Maybe add command to put directory onto HDFS here or create separate script for that?
 done
 
-#python3 src/preprocess.py  "data/"
 
+shopt -s extglob #enble globbing in script
+# start merging files
+for dir in $(ls data/); do
+  echo $header >> data/$dir/merge.csv
+  tail -q -n +2 data/$dir/+([0-9]).csv >> data/$dir/merge.csv
+  rm data/$dir/+([0-9]).csv # remove all merged files
+done
+
+#python3 src/preprocess.py  "$year_start" "$year_end"
 
 total_data_size=$(du -h data | tail -n 1 | awk '{print $1}')
 
