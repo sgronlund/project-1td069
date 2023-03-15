@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 COPY *.xml config/
-COPY *.sh config/
+#COPY *.sh config/
 RUN apt-get update && \ 
     apt-get -y upgrade && \
     apt install -y openjdk-8-jdk-headless && \ 
@@ -16,8 +16,7 @@ RUN apt-get update && \
     mkdir hadoop/datanode && \
     mkdir hadoop/logs && \ 
     cp config/*.xml hadoop/etc/hadoop/
-EXPOSE 9870/tcp 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
-RUN /config/resolve-host.sh
+#RUN /config/resolve-host.sh
 CMD /hadoop/bin/hdfs datanode
 

@@ -1,0 +1,7 @@
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <!-- TODO: need to figure out correct hostname for master running in a container-->
+        <value>hdfs://192.168.0.110:9000</value>
+    </property>
+</configuration>
