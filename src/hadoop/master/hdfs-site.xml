@@ -1,0 +1,35 @@
+<configuration>
+<property>
+  <name>dfs.namenode.name.dir</name>
+  <value>/hadoop/namenode</value>
+</property>
+<property>
+  <name>dfs.datanode.data.dir</name>
+  <value>/hadoop/datanode</value>
+</property>
+<!-- Otherwise we get Datanode denied communication with namenode because hostname cannot be resolved
+<property>
+  <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+  <value>false</value>
+</property>
+-->
+<property>
+  <name>dfs.permissions.enabled</name>
+  <value>false</value>
+</property>
+<property>
+  <name>dfs.replication</name>
+  <value>3</value>
+</property>
+<property>
+  <name>dfs.namenode.rpc-bind-host</name>
+  <value>0.0.0.0</value>
+  <description>
+    The actual address the RPC server will bind to. If this optional address is
+    set, it overrides only the hostname portion of dfs.namenode.rpc-address.
+    It can also be specified per name node or name service for HA/Federation.
+    This is useful for making the name node listen on all interfaces by
+    setting it to 0.0.0.0.
+  </description>
+</property>
+</configuration>

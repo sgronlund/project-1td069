@@ -41,11 +41,11 @@ shopt -s extglob #enble globbing in script
 # start merging files
 for dir in $(ls data/); do
   echo $header >> data/$dir/merge.csv
-  tail -q -n +2 data/$dir/+([0-9]).csv >> data/$dir/merge.csv
+  tail -q -n +2 data/$dir/+([0-9]).csv | sed 's/\"//g' >> data/$dir/merge.csv
   rm data/$dir/+([0-9]).csv # remove all merged files
 done
 
-python3 src/preprocess.py  "$year_start" "$year_end"
+#python3 src/preprocess.py  "$year_start" "$year_end"
 
 total_data_size=$(du -h data | tail -n 1 | awk '{print $1}')
 
